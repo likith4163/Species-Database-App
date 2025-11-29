@@ -1,111 +1,236 @@
 <!DOCTYPE html>
-<html lang = "en">
+<html lang="en">
 <head>
-    <meta charset = "UTF-8">
+    <meta charset="UTF-8" />
     <title>SBA Home</title>  <!--Title for home page-->
-    <meta name = "viewport" content = "width = device-width, initial-scale = 1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <!-- This code is for PWA -->
-    <link rel = "manifest" href = "manifest.json">
-    <meta name = "theme-color" content = "#fff3ff">
+    <!-- PWA -->
+    <link rel="manifest" href="manifest.json" />
+    <meta name="theme-color" content="#fff3ff" />
 
     <style>
-        /* Styles for home page */
+        /* Body background and font */
         body {
             font-family: Arial, sans-serif;
             margin: 0;
-            background: #8DC63F;
+            background: #9ACD6B; /* Softer green background */
             color: #000000;
             display: flex;
             justify-content: center;
             align-items: flex-start;
             min-height: 100vh;
-            padding: 0;
-
+            padding: 1rem 0; /* Padding top and bottom */
         }
 
-    /* The app shell here is the design of the size of the body that we will create our phone from.
-    It is currently a placeholder while we figure out responsive mobile app design. */
-    .app-shell {
-        background: #f9fbfc;
+        /* Container for the app */
+        .app-shell {
+            background: #ffffff; /* White background for card */
+            width: 100%;
+            max-width: 480px;
+            min-height: 600px;
+            margin: 0 auto;
+            border-radius: 16px; /* Rounded corners all around */
+            box-shadow: 0 8px 24px rgba(15, 23, 42, 0.15); /* Softer shadow */
+            padding: 2rem 1.5rem 2.5rem;
+            box-sizing: border-box;
+        }
 
-        width: 100%;
-        max-width: 480px;
-        min-height: 600px;
+        /* Header styling */
+        .app-header {
+            width: 100%;
+            background-color: #0B5C37; /* Dark green */
+            padding: 1rem 1.5rem;
+            border-radius: 16px 16px 0 0; /* Rounded top corners only */
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-sizing: border-box;
+            margin-bottom: 2rem; /* More space below header */
+        }
 
-        margin: 0 auto;
-        margin-top: 1rem;
+        .header-title {
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: #FFFFFF;
+            margin: 0;
+        }
 
-        border-radius: 0;
-        box-shadow: 0 18px 40px rgba(15, 23, 42, 0.45);
+        .lang-btn {
+            background: white;
+            color: #0B5C37;
+            border: none;
+            padding: 0.5rem 1rem;
+            font-size: 1.1rem;
+            font-weight: 600;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: background-color 0.25s ease, box-shadow 0.25s ease;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+        }
 
-        padding: 2rem 1.5rem 2.5rem;
-        box-sizing: border-box;
-    }
+        .lang-btn:hover {
+            background: #e5e5e5;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
 
-    .app-title {
-        text-align: center;
-        margin: 0 0 2.5rem 0;
-        font-size: 1.5rem;
-        font-weight: 600;
-        color: #0f172a;
-    }
+        /* Species list container */
+        .container#species-list {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
 
-    .app-subtitle{
-        text-align: center;
-        margin: -1.5rem 0 2.5rem 0;
-        font-size: 1rem;
-        color: #475569;
-    }
+        /* Species list item */
+        .species-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            background: #F5F7FA; /* light gray background */
+            padding: 1rem;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(15, 23, 42, 0.1);
+            transition: box-shadow 0.3s ease;
+        }
 
-    /* Logo styling (small, centered) */
-    .app-logo {
-        width: 140px;
-        display: block;
-        margin: 0 auto 1.25rem auto;
-    }
+        .species-item:hover {
+            box-shadow: 0 4px 16px rgba(15, 23, 42, 0.15);
+        }
 
-    .lang-toggle{
-        display: flex;
-        border-radius: 999px;
-        overflow: hidden;
-        border: 1px solid #0f172a;
-        background: #f9fbfc;
-    }
+        /* Species image */
+        .species-item img {
+            width: 64px;
+            height: 64px;
+            border-radius: 10px;
+            object-fit: cover;
+            flex-shrink: 0;
+        }
+
+        /* Species text container */
+        .species-text {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .species-name {
+            font-weight: 700;
+            font-size: 1.1rem;
+            margin: 0 0 0.25rem 0;
+            color: #1f2937; /* Darker text */
+        }
+
+        .species-subname {
+            font-weight: 400;
+            font-size: 0.9rem;
+            color: #6B7280; /* Gray text */
+            margin: 0;
+        }
+
+        /* Logo centered and with margin */
+        .app-logo {
+            width: 140px;
+            display: block;
+            margin: 3rem auto 1.5rem auto;
+        }
+
+        /* Main app title */
+        .app-title {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #111827;
+            text-align: center;
+            margin: 0 0 1rem 0;
+        }
+
+        /* Language label */
+        .lang-label {
+            font-size: 1rem;
+            color: #374151;
+            text-align: center;
+            margin-bottom: 1rem;
+        }
+
+        /* Main placeholder paragraph */
+        p {
+            font-size: 1rem;
+            line-height: 1.5;
+            color: #374151;
+            text-align: center;
+            margin: 0 1rem 2rem 1rem;
+        }
+
+        /* Change language link */
+        .back-link {
+            display: block;
+            text-align: center;
+            color: #0B5C37;
+            font-weight: 600;
+            text-decoration: none;
+            margin-bottom: 2rem;
+            transition: color 0.2s ease;
+        }
+
+        .back-link:hover {
+            color: #074822;
+            text-decoration: underline;
+        }
+
+        /* Debug info style */
+        .debug {
+            font-size: 0.8rem;
+            color: #9CA3AF;
+            text-align: center;
+        }
     </style>
 </head>
 <body>
-    <main class = "app-shell">
-      
-        <div class="container" id="species-list"></div>
+    <main class="app-shell">
+        <!-- Header with title and EN button -->
+        <header class="app-header">
+            <h1 class="header-title">Species Database</h1>
+            <button class="lang-btn">EN</button>
+        </header>
 
+        <!-- Species container with sample items -->
+        <div class="container" id="species-list">
+            <div class="species-item">
+                <img src="Assets/Images/Camouflage18/species1.png" alt="Albizia-lebbeck" />
+                <div class="species-text">
+                    <p class="species-name">Albizia-lebbeck</p>
+                    <p class="species-subname">Ai-Samatuku</p>
+                </div>
+            </div>
+            <div class="species-item">
+                <img src="Assets/Images/Camouflage18/species2.png" alt="Azadirachta-indica" />
+                <div class="species-text">
+                    <p class="species-name">Azadirachta-indica</p>
+                    <p class="species-subname">Sumaer Malae</p>
+                </div>
+            </div>
+        </div>
         <script src="scripts/specieslist.js"></script>
 
-        <!-- Logo above the main title -->
-        <img src="Assets/Images/Camouflage18/logo-placeholder.png" alt="Species Database App Logo" class="app-logo">
+        <!-- Logo and main content -->
+        <img src="Assets/Images/Camouflage18/logo-placeholder.png" alt="Species Database App Logo" class="app-logo" />
 
-        <h1>Species Database App</h1>
-        <p class = "lang-label" id = "langLabel">
-            Placeholder result of loading language
-        </p>
+        <h1 class="app-title">Species Database App</h1>
+        <p class="lang-label" id="langLabel">Placeholder result of loading language</p>
 
         <p>
             This is the home page that will contain our main content.
-            for now it is just a placeholder.
+            For now it is just a placeholder.
         </p>
 
-        <a class = "back-link" href = "index.html"> 
-            Change Language
-        </a>
+        <a class="back-link" href="index.html">Change Language</a>
 
-        <div class = "debug" id = "debugInfo">
+        <div class="debug" id="debugInfo">
             <!-- Debug information will be displayed here -->
         </div>
     </main>
 
-    <!-- The Script controls language and local storage of languages -->
+    <!-- Language script -->
     <script>
-        let lang = "en"; //Default language
+        let lang = "en"; // Default language
 
         try {
             const stored = localStorage.getItem("appLanguage");
